@@ -1,0 +1,20 @@
+version: '3.9'
+services:
+  estherbot:
+    container_name: dev-webhook-api
+    restart: unless-stopped
+    image: webhook
+    volumes:
+      - /opt/webhook/ssh:/root/.ssh/
+      - /opt/webhook/app.py:/app/app.py
+    ports:
+      - "7800:5000"
+    hostname: webhook
+    networks:
+      webhook:
+        aliases:
+          - webhook
+networks:
+  webhook:
+    name: dev
+    driver: bridge

@@ -1,0 +1,17 @@
+Host host_name_1
+  HostName 8.8.8.8
+  User user1
+  Port 22
+  IdentityFile ~/.ssh/key1.key
+  
+Host host_name_2
+  HostName 8.8.8.8
+  User user2
+  Port 22
+  IdentityFile ~/.ssh/key2.key
+
+Host host_name_3
+  HostName 8.8.8.8
+  User user3
+  Port 22
+  IdentityFile ~/.ssh/key3.key

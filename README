@@ -1,0 +1,58 @@
+This text is available in two languages: English and Russian.
+
+## Building a Docker image (EN)
+Initially, we compile our Docker image where the application will run.
+The Docker image is built using the `docker build` command. We pass the name of our image tag as an argument `-t`.
+
+```sh
+docker build -t webhook .
+```
+**Note**: The period at the end of the command points to the current directory (where the Dockerfile should be) for building the Docker image.
+
+## Setting up SSH connection (EN)
+To ensure the smooth operation of our containers, it is necessary to establish an SSH connection right on the machines where they will be deployed. An example of such a connection can be found in the `/ssh` folder.
+
+## Workflow logic (EN)
+
+The aim of this process is to transfer files from one container to another through an intermediate machine.
+
+1. The first SSH connection is made from the container initiating the file transfer.
+2. The second connection occurs from the machine connected to the source container. Here the files are already received and ready to be transferred to the target container.
+
+**Important**: Make sure that the machine name and user on the intermediate machine match with the name and user of the server from where the file copying takes place. This is necessary for the operation to be successful.
+
+```python
+ssh_commands = {
+    "/dev": "ssh user1@host_name_1 'rsync -avz --stats /path/to/files/from/where/transferred/* user2@host_name_2:/path/to/files/to/where/transferred/'"
+}
+```
+
+---
+
+## Сборка Docker образа (RU)
+Для начала соберем наш Docker образ, в котором будет запускаться приложение. 
+Сборка Docker образа осуществляется с помощью команды `docker build`. В качестве аргумента `-t` мы передаем название тега нашего образа.
+
+```sh
+docker build -t webhook .
+```
+**Примечание**: Точка в конце команды указывает на текущую директорию (где должен быть Dockerfile) для построения Docker образа.
+
+## Настройка SSH соединения (RU)
+Чтобы обеспечить бесперебойную работу наших контейнеров, необходимо установить соединение по SSH прямо на машинах, где они будут развернуты. Пример такого соединения можно найти в папке `/ssh`.
+
+## Логика работы (RU)
+
+Цель этого процесса состоит в том, чтобы файлы могли быть переданы из одного контейнера в другой через промежуточную машину. 
+
+1. Первое подключение по SSH осуществляется из контейнера, который инициирует передачу файлов.
+2. Второе подключение происходит уже с машины, которая подключена к исходному контейнеру. Здесь файлы уже получают и готовы к переносу в целевой контейнер.
+
+**Важно**: Убедитесь, что имя машины и пользователь на промежуточной машине совпадают с именем и пользователем сервера, откуда происходит копирование файлов. Это необходимо для успешного выполнения операции.
+
+```python
+ssh_commands = {
+    "/dev": "ssh user1@host_name_1 'rsync -avz --stats /путь/к/файлам/от/куда/переносят/* user2@host_name_2:/путь/к/файлам/куда/переносят/'"
+}
+```
+known_hosts - Всегда будет сделано запись ключа когда сервер подключиться один к другому 
